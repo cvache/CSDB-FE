@@ -59,8 +59,8 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Scratch</h1>
-        <p>A simple note taking app</p>
+        <h1>PLACEHOLDER</h1>
+        <p>A placeholder title</p>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">
             Login

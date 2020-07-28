@@ -1,6 +1,9 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
+
 import Home from "./containers/Home";
 import Login from "./containers/Login";
 import Notes from "./containers/Notes";
@@ -14,22 +17,28 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route exact path="/login">
+
+      <UnauthenticatedRoute exact path="/login">
         <Login />
-      </Route>
-      <Route exact path="/signup">
+      </UnauthenticatedRoute>
+
+      <UnauthenticatedRoute exact path="/signup">
         <Signup />
-      </Route>
-      <Route exact path="/notes/new">
+      </UnauthenticatedRoute>
+
+      <AuthenticatedRoute exact path="/notes/new">
         <NewNote />
-      </Route>
+      </AuthenticatedRoute>
+
       <Route exact path="/notes/:id">
         <Notes />
       </Route>
-      {/* Finally, catch all unmatched routes */}
+
+      {/* catch all */}
       <Route>
         <NotFound />
       </Route>
+      
     </Switch>
   );
 }
