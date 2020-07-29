@@ -46,15 +46,19 @@ export default function Images() {
 
     console.log("rendered")
     return (
-        <div className='ImgSection'>
-            <h2>{title}</h2>
+        <div className='Images'>
+            <h1>{title}</h1>
             <Tabs defaultActiveKey='Image' id='infoTabs'>
                 <Tab eventKey='Image' title='Image'>
                     <Image src={image ? image.attatchmentURL : '#'}></Image>
                 </Tab>
-                
+
                 <Tab eventKey='tags' title='Tags'>
                     <h2>Map to table</h2>
+                </Tab>
+
+                <Tab eventKey='metadata' title='Metadata'>
+                    <h2>Map of metadata</h2>
                 </Tab>
             </Tabs>
         </div>
