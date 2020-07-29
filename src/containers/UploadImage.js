@@ -52,7 +52,7 @@ export default function UploadImage() {
   function createNote(note) {
     console.log(note);
 
-    return API.post("notes", "/notes", {
+    return API.post("notes", "/images", {
       body: note
     });
   }

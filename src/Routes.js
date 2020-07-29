@@ -6,9 +6,8 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
 import Home from "./containers/Home";
 import Login from "./containers/Login";
-import Notes from "./containers/Notes";
+import Images from "./containers/Images";
 import Signup from "./containers/Signup";
-import NewNote from "./containers/NewNote";
 import NotFound from "./containers/NotFound";
 import DownloadImages from "./containers/DownloadImages";
 import UploadImage from "./containers/UploadImage";
@@ -36,12 +35,9 @@ export default function Routes() {
         <UploadImage />
       </AuthenticatedRoute>
 
-      <AuthenticatedRoute exact path="/notes/new">
-        <NewNote />
-      </AuthenticatedRoute>
-
-      <Route exact path="/notes/:id">
-        <Notes />
+      <Route exact path="/image/:id">
+        {console.log("route flag")}
+        <Images />
       </Route>
 
       {/* catch all */}
