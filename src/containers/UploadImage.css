@@ -1,4 +1,6 @@
-.DownloadImages {
-    padding-top: 100px;
-    text-align: center;
+.UploadImage form {
+    padding-top: 15px;
+    width: 250px;
+    margin: auto;
 }
+
