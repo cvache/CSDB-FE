@@ -73,20 +73,33 @@ export default function Home() {
     );
   }
 
-  function renderNotes() {
+  function renderAuthenticatedLander() {
     return (
+      /*
       <div className="notes">
         <PageHeader>Your Notes</PageHeader>
         <ListGroup>
           {!isLoading && renderNotesList(notes)}
         </ListGroup>
       </div>
+      */
+    <div className='lander'>
+      <h1>Welcome!</h1>
+      <div>
+        <Link to='/image/download' className="btn btn-info btn-lg">
+          Download Images
+        </Link>
+        <Link to='/image/upload' className="btn btn-info btn-lg">
+          Upload Images
+        </Link>
+      </div>  
+     </div>
     );
   }
 
   return (
     <div className="Home">
-      {isAuthenticated ? renderNotes() : renderLander()}
+      {isAuthenticated ? renderAuthenticatedLander() : renderLander()}
     </div>
   );
 }
