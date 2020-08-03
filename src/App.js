@@ -44,14 +44,22 @@ function App() {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to='/'>PLACEHOLDER FOR TITLE</Link>
+            <Link to='/'>TITLE HERE</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
+          <Nav pullLeft>
+            <LinkContainer to='/image/upload'>
+              <NavItem href='/image/upload'>Upload Images</NavItem>
+            </LinkContainer>
+            <LinkContainer to='/image/download'>
+              <NavItem href='/image/download'>Download Images</NavItem>
+            </LinkContainer>
+          </Nav>
           <Nav pullRight>
             {isAuthenticated
-              ? <NavItem onClick={handleLogout}>Logout</NavItem>
+              ? /*add my uploads section */<NavItem onClick={handleLogout}>Logout</NavItem>
               : <>
                   <LinkContainer to='/signup'>
                     <NavItem href='/signup'>Signup</NavItem>

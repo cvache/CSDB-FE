@@ -1,17 +1,17 @@
 const dev = {
     s3: {
         REGION: 'us-west-2',
-        BUCKET: 'notes-app-2-api-dev-attachmentsbucket-1g3vc0lyemlpu'
+        BUCKET: 'crowdsourced-image-db-dev-attachmentsbucket-jvrdfg45ql7i'
     },
     apiGateway: {
         REGION: 'us-west-2',
-        URL: 'https://nuweyjuh71.execute-api.us-west-2.amazonaws.com/dev'
+        URL: 'https://xcio0v982k.execute-api.us-west-2.amazonaws.com/dev'
     },
     cognito: {
         REGION: 'us-west-2',
-        USER_POOL_ID: 'us-west-2_NIy0K9EKo',
-        APP_CLIENT_ID: '6t45hmcb5mv7pdpgpgnrob8k9i',
-        IDENTITY_POOL_ID: 'us-west-2:4d27308c-ea44-4df0-b13e-2219e2c27fb2'
+        USER_POOL_ID: 'us-west-2_CDeKAgfgH',
+        APP_CLIENT_ID: '5oas5ccodf3gbcqlbtj8cjdmkv',
+        IDENTITY_POOL_ID: 'us-west-2:0aab714c-abd1-4933-9cc0-3f35d9b41897'
     }
 };
 

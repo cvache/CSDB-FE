@@ -6,10 +6,11 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
 import Home from "./containers/Home";
 import Login from "./containers/Login";
-import Notes from "./containers/Notes";
+import Images from "./containers/Images";
 import Signup from "./containers/Signup";
-import NewNote from "./containers/NewNote";
 import NotFound from "./containers/NotFound";
+import DownloadImages from "./containers/DownloadImages";
+import UploadImage from "./containers/UploadImage";
 
 export default function Routes() {
   return (
@@ -26,12 +27,17 @@ export default function Routes() {
         <Signup />
       </UnauthenticatedRoute>
 
-      <AuthenticatedRoute exact path="/notes/new">
-        <NewNote />
+      <AuthenticatedRoute exact path="/image/download">
+        <DownloadImages />
       </AuthenticatedRoute>
 
-      <Route exact path="/notes/:id">
-        <Notes />
+      <AuthenticatedRoute exact path="/image/upload">
+        <UploadImage />
+      </AuthenticatedRoute>
+
+      <Route exact path="/image/:id">
+        {console.log("route flag")}
+        <Images />
       </Route>
 
       {/* catch all */}
