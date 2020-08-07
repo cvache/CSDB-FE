@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { Tabs, Tab, Image } from 'react-bootstrap';
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
+import TagTable from "../components/TagTable";
+import MetadataTable from "../components/MetadataTable";
 import './Images.css';
 
 
@@ -11,9 +13,7 @@ export default function Images() {
     const [image, setImage] = useState(null);
     const [title, setTitle] = useState("");
 
-    console.log("id: " + id)
     useEffect(() => {
-        console.log('useEffect flag')
         
         function loadImage() {
             return API.get("notes", `/images/${id}`);
@@ -22,11 +22,9 @@ export default function Images() {
         async function onLoad() {
             try {
                 const image = await loadImage();
-                const {title, imgName} = image;
-                
-                
-                image.attatchmentURL = await Storage.get(imgName, { level: 'protected' });
-                
+                const { title, imgName } = image;
+
+                image.attatchmentURL = await Storage.get(imgName, { level: 'protected' });                
 
                 setTitle(title);
                 setImage(image);
@@ -36,15 +34,13 @@ export default function Images() {
         }
 
         onLoad();
-    }, [id]);
+    }, [id]);   
+    
+    if(image){
+        console.log(image.tags);
+    }
     
 
-    console.log("image: " + image);
-    if (image != null){
-        console.log(image.attatchmentURL);
-    }
-
-    console.log("rendered")
     return (
         <div className='Images'>
             <h1>{title}</h1>
@@ -54,11 +50,11 @@ export default function Images() {
                 </Tab>
 
                 <Tab eventKey='tags' title='Tags'>
-                    <h2>Map to table</h2>
+                    {image ? <TagTable tags={image.tags} /> : "Loading"}
                 </Tab>
 
                 <Tab eventKey='metadata' title='Metadata'>
-                    <h2>Map of metadata</h2>
+                    {image ? <MetadataTable items={image.metadata} /> : "Loading"}
                 </Tab>
             </Tabs>
         </div>
