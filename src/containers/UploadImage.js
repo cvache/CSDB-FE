@@ -13,12 +13,19 @@ export default function UploadImage() {
     const file = useRef(null);
   const history = useHistory();
   const [title, setTitle] = useState("");
+  const [tags, setTags] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
 
   function handleFileChange(event) {
     file.current = event.target.files[0];
   }
+
+  /*
+  function validateTags() {
+      return true;
+  }
+  */
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -38,10 +45,14 @@ export default function UploadImage() {
       const attachment = file.current ? await s3Upload(file.current) : null;
       //scrub metadata here to avoid sending img file to REST and THEN to S3.
       //Doing it here allows us to just send the metadata as is
-      const metadata = getExif(file.current);
+      const metadataFile = getExif(file.current);
+      const metadata = {
+          size: metadataFile.EXIFwrapped.size,
+          type: metadataFile.EXIFwrapped.type
+    };
 
 
-      await createNote({ title, attachment, metadata });
+      await createNote({ title, attachment, metadata, tags });
       history.push("/");
     } catch (e) {
       onError(e);
@@ -62,13 +73,24 @@ export default function UploadImage() {
       <form onSubmit={handleSubmit}>
 
         <FormGroup controlId="content">
-          <FormControl
-            value={title}
-            type='text'
-            placeholder="Image Title"
-            onChange={e => setTitle(e.target.value)}
-            required
-          />
+            <ControlLabel>Title</ControlLabel>
+            <FormControl
+                value={title}
+                type='text'
+                placeholder="Image Title"
+                onChange={e => setTitle(e.target.value)}
+                required
+            />
+        </FormGroup>
+
+        <FormGroup>
+            <ControlLabel>Tags</ControlLabel>
+            <FormControl
+                value={tags}
+                type='text'
+                placeholder='Tag 1, Tag 2, Tag 3'
+                onChange={e => setTags(e.target.value)}
+            />
         </FormGroup>
 
         <FormGroup controlId="file">
