@@ -40,7 +40,7 @@ export default function DownloadImages() {
             i !== 0 ? (
                 <LinkContainer key={image.imgId} to={`/image/${image.imgId}`}>
                 <ListGroupItem header={image.title}>
-                {"Created: " + new Date(image.createdAt).toLocaleString()}
+                    {"Created: " + new Date(image.createdAt).toLocaleString()}
                 </ListGroupItem>
             </LinkContainer>
             ) : (

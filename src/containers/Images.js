@@ -12,6 +12,7 @@ export default function Images() {
     const {id} = useParams();
     const [image, setImage] = useState(null);
     const [title, setTitle] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         
@@ -34,16 +35,15 @@ export default function Images() {
         }
 
         onLoad();
+        setIsLoading(false);
     }, [id]);   
     
     if(image){
         console.log(image.tags);
     }
-    
 
-    return (
-        <div className='Images'>
-            <h1>{title}</h1>
+    function loadTabs() {
+        return (
             <Tabs defaultActiveKey='Image' id='infoTabs'>
                 <Tab eventKey='Image' title='Image'>
                     <Image src={image ? image.attatchmentURL : '#'}></Image>
@@ -57,6 +57,14 @@ export default function Images() {
                     {image ? <MetadataTable items={image.metadata} /> : "Loading"}
                 </Tab>
             </Tabs>
+        );       
+    }
+    
+
+    return (
+        <div className='Images'>
+            <h1>{title}</h1>
+            {!isLoading && loadTabs()}
         </div>
     );
 }
