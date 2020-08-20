@@ -5,6 +5,7 @@ import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
 import TagTable from "../components/TagTable";
 import MetadataTable from "../components/MetadataTable";
+import CommentTab from "../containers/CommentTab";
 import './Images.css';
 
 
@@ -55,6 +56,10 @@ export default function Images() {
 
                 <Tab eventKey='metadata' title='Metadata'>
                     {image ? <MetadataTable items={image.metadata} /> : "Loading"}
+                </Tab>
+
+                <Tab eventKey='comments' title='Comments'>
+                    {image ? <CommentTab image={image} /> : "No Comments"}
                 </Tab>
             </Tabs>
         </div>

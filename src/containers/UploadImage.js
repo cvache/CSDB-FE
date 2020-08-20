@@ -46,13 +46,14 @@ export default function UploadImage() {
       //scrub metadata here to avoid sending img file to REST and THEN to S3.
       //Doing it here allows us to just send the metadata as is
       const metadataFile = getExif(file.current);
+      const comments = [];
       const metadata = {
           size: metadataFile.EXIFwrapped.size,
           type: metadataFile.EXIFwrapped.type
     };
 
 
-      await createNote({ title, attachment, metadata, tags });
+      await createNote({ title, attachment, metadata, tags, comments });
       history.push("/");
     } catch (e) {
       onError(e);
