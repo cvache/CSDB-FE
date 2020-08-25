@@ -4,36 +4,7 @@ import { API } from 'aws-amplify';
 import "./CommentTab.css";
 import { LinkContainer } from 'react-router-bootstrap';
 
-function renderImage(attatchmentURL) {
-    return (
-        <div id="container">
-            <Image id='commentImage' src={attatchmentURL}></Image>
-            <div id='commentBox'>
 
-            </div>
-        </div>
-    );
-}
-
-function renderCommentsList(comments) {
-    console.log(comments)
-    if (!comments) {
-        return <h3>No comments to display</h3>
-    } else {
-        return [].concat(comments).map((comment, i) =>
-            (
-                <LinkContainer key={i} to='#'>
-                    <ListGroupItem>
-                        <h3>list placeholder</h3>
-                    </ListGroupItem>
-                </LinkContainer>
-                
-            )
-        );
-    }
-
-    
-}
 
 
 export default function CommentTab(props) {
@@ -45,9 +16,36 @@ export default function CommentTab(props) {
     const handleShow = () => setShow(true);
 
     
-
+    function renderImage(attatchmentURL) {
+        return (
+            <div id="container">
+                <Image id='commentImage' src={attatchmentURL}></Image>
+                <div id='commentBox'>
     
-     return (
+                </div>
+            </div>
+        );
+    }
+    
+    function renderCommentsList(comments) {
+        console.log(comments)
+        if (!comments) {
+            return <h3>No comments to display</h3>
+        } else {
+            return [].concat(comments).map((comment, i) =>
+                (
+                    <LinkContainer key={i} to='#'>
+                        <ListGroupItem>
+                            <h3>list placeholder</h3>
+                        </ListGroupItem>
+                    </LinkContainer>
+                    
+                )
+            );
+        }        
+    }
+    
+    return (
         <>
             <div id='left'>
                 { renderImage(attatchmentURL) }
@@ -81,8 +79,5 @@ export default function CommentTab(props) {
                 </>
             </div>
         </>
-        
-         
-
-     )   
+    );   
 }

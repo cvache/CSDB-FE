@@ -25,7 +25,7 @@ export default function Images() {
                 const image = await loadImage();
                 const { title, imgName } = image;
 
-                image.attatchmentURL = await Storage.get(imgName, { level: 'protected' });                
+                image.attatchmentURL = await Storage.get(imgName, { level: 'public' });                
 
                 setTitle(title);
                 setImage(image);
