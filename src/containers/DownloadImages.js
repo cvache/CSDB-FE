@@ -10,6 +10,7 @@ export default function DownloadImages() {
     const [images, setImages] = useState([]);
     const {isAuthenticated} = useAppContext();
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingSrc, setIsLoadingSrc] = useState(true);
 
     useEffect(() => {
         async function onLoad() {
@@ -20,7 +21,6 @@ export default function DownloadImages() {
             try {
                 const images = await loadImageInfo();
                 setImages(images);
-                loadImages();
             } catch (e) {
                 onError(e);
             }
@@ -33,16 +33,38 @@ export default function DownloadImages() {
     }, [isAuthenticated]);
 
     async function loadImageInfo() {
-        const imageList = await API.get("notes", "/images")
+        const imageList = await API.get("notes", "/images");
+        let len = imageList.length;
+        imageList.forEach(async item => {
+            item.src = await Storage.get(item.imageName, { level: 'public' })
+        });
+        if (len === 0) {
+            console.log("even");
+            setIsLoadingSrc(false);
+        }
+        //setIsLoadingSrc(false);
         return imageList;
     }
-    
-    async function loadImages() {
-        images.forEach(async item => {
-            item.src = await Storage.get(item.imageName, { level: 'public' });
-        });
-    }
 
+    function ezLoad() {
+        console.log(images);
+        const buffer = images.map((image, i) => {
+            console.log(image.src);
+            return (
+                <div id={i} key={i}>
+                    {!isLoadingSrc && <Image key={i} src={image ? image.src : '#'} />} 
+                </div>
+            );
+        });
+
+        console.log(buffer);
+        return (
+            <div id='buffer'>
+                {buffer}
+            </div>
+        );
+    }
+    
     function constructImageGrid() {
         const buffer = [];
         const imgList = [];
@@ -97,10 +119,10 @@ export default function DownloadImages() {
     
     return (
         <div>
-            {isLoading ? (
+            {isLoadingSrc ? (
                 <div>Loading...</div>
             ) : (<div className='mainOut'>
-                {constructImageGrid()}
+                {ezLoad()}
                 </div>
             )}
         </div>
