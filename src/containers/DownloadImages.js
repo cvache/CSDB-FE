@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAppContext } from "../libs/contextLib";
+import { Link } from 'react-router-dom';
 import "./DownloadImages.css";
-import { Image, Col, Row } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import { onError } from '../libs/errorLib';
 import { API, Storage } from 'aws-amplify';
 
@@ -24,7 +25,7 @@ export default function DownloadImages() {
                 onError(e);
             }
 
-            console.log("Finished loading")
+            console.log("Finished loading effects")
             setIsLoading(false);
         }
         
@@ -32,46 +33,41 @@ export default function DownloadImages() {
         onLoad();
     }, [isAuthenticated]);
 
-    async function loadImageInfo() {
-        API.get("notes", "/images")
-        .then(imageList => {
-            let len = imageList.length;
-            imageList.forEach(async item => {
-                Storage.get(item.imageName, { level: 'public' })
-                .then(result => {
-                    item.src = result;
-                    console.log(item.src);
-                    len--;
-                    if (len === 0){
-                        console.log("TRIGGERED");
-                        return imageList;
-                    }
-                })
-                .catch(error => console.log(error.response))
-            });
-        })
-        .catch(error => console.log(error.response));        
+    useEffect(() => {
+        loadImageSrcs();
+    });
+
+    async function loadImageSrcs() {
+        
     }
-    /*
+
     async function loadImageInfo() {
-            const imageList = await API.get("notes", "/images");
-            let len = imageList.length;
-            imageList.forEach(async item => {
-                len--;
-                item.src = await Storage.get(item.imageName, { level: 'public' });
-                //console.log(item.src);
-            });
-            if (len === 0) {
-                console.log("even");
-                return imageList;
+        const initArr = await API.get("notes", "/images");
+        for (const img of initArr) {
+            try {
+                const src = await Storage.get(img.imgName, {level: 'public'});
+                img.src = src;
+            } catch (e) {
+                onError(e);
             }
+            
+            
         }
-    */
+        return initArr;
+    }
+
+    async function asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+            await callback(array[index], index, array);
+        }
+    }
+
     function ezLoad() {
+        console.log("Attempted load");
         const buffer = images.map((image, i) => {
             return (
                 <div id={i} key={i}>
-                    <Image key={i} src={image ? image.src : '#'} />
+                    <Image key={i} src={image.src} />
                 </div>
             );
         });
@@ -83,7 +79,7 @@ export default function DownloadImages() {
             </div>
         );
     }
-    
+    /*
     function constructImageGrid() {
         const buffer = [];
         const imgList = [];
@@ -135,25 +131,22 @@ export default function DownloadImages() {
 
         return <div>{buffer}</div>
     }
-    
+    */
+
+    async function getImgSrc(imgName) {
+        return await Storage.get(imgName, {level: 'public'});
+    }
+
+    console.log("Images: ");
+    console.log(images);
     return (
-        <div>
-            {isLoading ? (
-                <div>Loading...</div>
-            ) : (<div className='mainOut'>
-                {ezLoad()}
-                </div>
-            )}
-        </div>
+        <>
+            {images.map(d => 
+            <Link to={`/image/${d.imgId}`}>
+                <Image src={d.src} alt="loading..."/>
+            </Link>)}
+        </>
+ 
             
     );
-    
-
 }
-
-/*
-    <Image 
-    key={singleList[j].imgId + "img"} 
-    src={singleList[j] ? singleList[j].src : '#'} 
-    />
-    */

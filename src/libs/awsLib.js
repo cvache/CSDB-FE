@@ -4,7 +4,7 @@ export async function s3Upload(file) {
   const filename = `${Date.now()}-${file.name}`;
 
   const stored = await Storage.vault.put(filename, file, {
-    level: 'protected',
+    level: 'public',
     contentType: file.type,
   });
 

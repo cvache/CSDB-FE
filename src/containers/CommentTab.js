@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Image, Button, Modal, ListGroupItem, } from 'react-bootstrap';
-import { API } from 'aws-amplify';
+//import { API } from 'aws-amplify';
 import "./CommentTab.css";
 import { LinkContainer } from 'react-router-bootstrap';
 
