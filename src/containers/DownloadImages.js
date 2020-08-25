@@ -10,7 +10,6 @@ export default function DownloadImages() {
     const [images, setImages] = useState([]);
     const {isAuthenticated} = useAppContext();
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoadingSrc, setIsLoadingSrc] = useState(true);
 
     useEffect(() => {
         async function onLoad() {
@@ -28,31 +27,51 @@ export default function DownloadImages() {
             console.log("Finished loading")
             setIsLoading(false);
         }
+        
 
         onLoad();
     }, [isAuthenticated]);
 
     async function loadImageInfo() {
-        const imageList = await API.get("notes", "/images");
-        let len = imageList.length;
-        imageList.forEach(async item => {
-            item.src = await Storage.get(item.imageName, { level: 'public' })
-        });
-        if (len === 0) {
-            console.log("even");
-            setIsLoadingSrc(false);
-        }
-        //setIsLoadingSrc(false);
-        return imageList;
+        API.get("notes", "/images")
+        .then(imageList => {
+            let len = imageList.length;
+            imageList.forEach(async item => {
+                Storage.get(item.imageName, { level: 'public' })
+                .then(result => {
+                    item.src = result;
+                    console.log(item.src);
+                    len--;
+                    if (len === 0){
+                        console.log("TRIGGERED");
+                        return imageList;
+                    }
+                })
+                .catch(error => console.log(error.response))
+            });
+        })
+        .catch(error => console.log(error.response));        
     }
-
+    /*
+    async function loadImageInfo() {
+            const imageList = await API.get("notes", "/images");
+            let len = imageList.length;
+            imageList.forEach(async item => {
+                len--;
+                item.src = await Storage.get(item.imageName, { level: 'public' });
+                //console.log(item.src);
+            });
+            if (len === 0) {
+                console.log("even");
+                return imageList;
+            }
+        }
+    */
     function ezLoad() {
-        console.log(images);
         const buffer = images.map((image, i) => {
-            console.log(image.src);
             return (
                 <div id={i} key={i}>
-                    {!isLoadingSrc && <Image key={i} src={image ? image.src : '#'} />} 
+                    <Image key={i} src={image ? image.src : '#'} />
                 </div>
             );
         });
@@ -119,7 +138,7 @@ export default function DownloadImages() {
     
     return (
         <div>
-            {isLoadingSrc ? (
+            {isLoading ? (
                 <div>Loading...</div>
             ) : (<div className='mainOut'>
                 {ezLoad()}
