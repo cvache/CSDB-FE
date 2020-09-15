@@ -33,13 +33,6 @@ export default function DownloadImages() {
         onLoad();
     }, [isAuthenticated]);
 
-    useEffect(() => {
-        loadImageSrcs();
-    });
-
-    async function loadImageSrcs() {
-        
-    }
 
     async function loadImageInfo() {
         const initArr = await API.get("notes", "/images");
@@ -143,7 +136,7 @@ export default function DownloadImages() {
         <>
             {images.map(d => 
             <Link to={`/image/${d.imgId}`}>
-                <Image src={d.src} alt="loading..."/>
+                <Image src={d.src} alt="loading..." rounded thumbnail/>
             </Link>)}
         </>
  
