@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Image = ({ url, title }) => (
+const Image = ({ url, title, imgId }) => (
     <li>
-        <img src={url} alt={title} />
+        <Link to={`/image/${imgId}`} >
+            <img src={url} alt={title} />
+        </Link>
     </li>
 );
 

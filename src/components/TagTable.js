@@ -4,8 +4,8 @@ import { Table } from 'react-bootstrap';
 
 export default function TagTable(props) {
     const tags = props.tags;
-    console.log(props.tags);
-    if (tags) {
+    console.log(tags.length);
+    if (tags[0] !== '') {
         const tagsWrapped = tags.map((tag, i) => 
             <tbody key={i}>
                 <tr>

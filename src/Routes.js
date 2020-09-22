@@ -6,11 +6,11 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
 import Home from "./containers/Home";
 import Login from "./containers/Login";
-import Images from "./containers/Images";
 import Signup from "./containers/Signup";
 import NotFound from "./containers/NotFound";
 import DownloadImages from "./containers/DownloadImages";
 import UploadImage from "./containers/UploadImage";
+import ApiDocs from "./containers/ApiDocs";
 
 export default function Routes() {
   return (
@@ -34,11 +34,10 @@ export default function Routes() {
       <AuthenticatedRoute exact path="/image/upload">
         <UploadImage />
       </AuthenticatedRoute>
-
-      <Route exact path="/image/:id">
-        {console.log("route flag")}
-        <Images />
-      </Route>
+      
+      <AuthenticatedRoute exact path="/api">
+        <ApiDocs />
+      </AuthenticatedRoute>
 
       {/* catch all */}
       <Route>

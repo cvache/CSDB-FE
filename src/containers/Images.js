@@ -10,7 +10,7 @@ import './Images.css';
 
 
 export default function Images() {
-    const {id} = useParams();
+    const {imgId} = useParams();
     const [image, setImage] = useState(null);
     const [title, setTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
@@ -18,7 +18,7 @@ export default function Images() {
     useEffect(() => {
         
         function loadImage() {
-            return API.get("notes", `/images/${id}`);
+            return API.get("notes", `/images/${imgId}`);
         }
 
         async function onLoad() {
@@ -37,12 +37,8 @@ export default function Images() {
 
         onLoad();
         setIsLoading(false);
-    }, [id]);   
+    }, [imgId]);   
     
-    if(image){
-        console.log(image.tags);
-    }
-
     function loadTabs() {
         return (
             <Tabs defaultActiveKey='Image' id='infoTabs'>
@@ -59,7 +55,7 @@ export default function Images() {
                 </Tab>
 
                 <Tab eventKey='comments' title='Comments'>
-                    {image ? <CommentTab image={image} /> : "No Comments"}
+                    {image ? <CommentTab image={image} /> : "Loading Comments"}
                 </Tab>
             </Tabs>
         );       
@@ -68,7 +64,7 @@ export default function Images() {
 
     return (
         <div className='Images'>
-            <h1>{title}</h1>
+            <h3>{title}</h3>
             {!isLoading && loadTabs()}
         </div>
     );
