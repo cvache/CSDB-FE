@@ -18,17 +18,17 @@ const dev = {
 const prod = {
     s3: {
         REGION: 'us-west-2',
-        BUCKET: 'notes-app-2-api-prod-attachmentsbucket-gdmu222gnqeg'
+        BUCKET: 'crowdsourced-image-db-prod-attachmentsbucket-e2h83ewyfpv9'
     },
     apiGateway: {
         REGION: 'us-west-2',
-        URL: 'https://lbu9yishii.execute-api.us-west-2.amazonaws.com/prod'
+        URL: 'https://as7hiwjykd.execute-api.us-west-2.amazonaws.com/prod'
     },
     cognito: {
         REGION: 'us-west-2',
-        USER_POOL_ID: 'us-west-2_KRQlBFfk6',
-        APP_CLIENT_ID: '2nm4944db8ps6jugovadsm9faj',
-        IDENTITY_POOL_ID: 'us-west-2:0a84d65d-20b2-4936-9d1c-8a7b1018ad76'
+        USER_POOL_ID: 'us-west-2_XRMjcLqxG',
+        APP_CLIENT_ID: '5e00ccid1fdjnns913q3meokl7',
+        IDENTITY_POOL_ID: 'us-west-2:f832ee7a-e1dd-452c-9d6b-b7fd6f42c621'
     }
 };
 
