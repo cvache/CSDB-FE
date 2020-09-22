@@ -10,8 +10,7 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>PLACEHOLDER</h1>
-        <p>A placeholder title</p>
+        <h1>Crowdsourced Medical Image Databse</h1>
         <div>
           <Link to="/login" className="btn btn-info btn-lg">
             Login

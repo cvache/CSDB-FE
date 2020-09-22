@@ -62,7 +62,7 @@ function App() {
           </Nav>
           <Nav pullRight>
             {isAuthenticated
-              ? /*add my uploads section */<NavItem onClick={handleLogout}>Logout</NavItem>
+              ? <NavItem onClick={handleLogout}>Logout</NavItem>
               : <>
                   <LinkContainer to='/signup'>
                     <NavItem href='/signup'>Signup</NavItem>
