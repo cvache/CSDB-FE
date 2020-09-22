@@ -56,6 +56,9 @@ function App() {
             <LinkContainer to='/image/download'>
               <NavItem href='/image/download'>Download Images</NavItem>
             </LinkContainer>
+            <LinkContainer to='/api'>
+              <NavItem href='api'>API</NavItem>
+            </LinkContainer>
           </Nav>
           <Nav pullRight>
             {isAuthenticated

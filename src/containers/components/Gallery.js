@@ -10,16 +10,16 @@ const Gallery = props => {
         images = results.map(image => {
             let src = image.src;
             let title = image.title;
+            let imgId = image.imgId;
             /*
             let userId = image.userId;
-            let imgId = image.id;
             let comments = image.comments;
             let createdAt = image.createdAt;
             let imgName = image.imgName;
             let metadata = image.metadata;
             let tags = image.tags;
             */
-            return <Image url={src} alt={title} />;
+            return <Image url={src} alt={title} imgId={imgId} />;
         });
     } else {
         noImages = <NoImages />;

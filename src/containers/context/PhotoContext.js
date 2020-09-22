@@ -9,7 +9,7 @@ const PhotoContextProvider = props => {
         const initArr = await API.get("notes", "/images");
         for (const img of initArr) {
             try {
-                //TODO: if query isnt abong list of tags, remove from arr
+                //TODO: if query isnt among list of tags, remove from arr
                 const src = await Storage.get(img.imgName, {level: 'public'});
                 img.src = src;
             } catch (e) {

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import PhotoContextProvider from "./context/PhotoContext";
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Item from "./components/Item";
 import Search from "./components/Search";
 import NotFound from "./components/NotFound";
-
+import Images from "./Images"
 
 
 class DownloadImages extends Component {
@@ -31,15 +31,21 @@ class DownloadImages extends Component {
                         />
                         <Switch>
                             <Route
-                                exact
-                                path="/" //TODO: this will need to be changed for it to work I think
-                                render={() => <Redirect to="/all" />}
+                                exact 
+                                path="/"
+                                render={() => <Item searchTerm="null" />}
                             />
 
                             <Route
                                 path="/search/:searchInput" //TODO: Change me
                                 render={props => (
                                     <Search searchTerm={props.match.params.searchInput} />
+                                )}
+                            />
+                            <Route
+                                path="/image/:imgId"
+                                render={props => (
+                                    <Images imgId={props.imgId} />
                                 )}
                             />
                             <Route component={NotFound} />
