@@ -6,7 +6,7 @@ const PhotoContextProvider = props => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
     const runSearch = async query => {
-        const initArr = await API.get("notes", "/images");
+        const initArr = query === "" ? await API.get("notes", '/images') : await API.get("notes", `/images/search/${query}`) ;
         for (const img of initArr) {
             try {
                 //TODO: if query isnt among list of tags, remove from arr

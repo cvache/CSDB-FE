@@ -33,7 +33,7 @@ class DownloadImages extends Component {
                             <Route
                                 exact 
                                 path="/"
-                                render={() => <Item searchTerm="null" />}
+                                render={() => <Item searchTerm="" />}
                             />
 
                             <Route
